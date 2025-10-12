@@ -2,6 +2,7 @@ package com.marcelo.ControleDeEstoque.Funcionarios;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import com.marcelo.ControleDeEstoque.Registros.RegistrosModel;
 import jakarta.persistence.*;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "Funcionarios")
+@Table(name = "funcionarios")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,10 +20,21 @@ import lombok.Setter;
 public class FuncionariosModel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
+
+    @Column(name = "nome", nullable = false)
     private String nome;
+
+    @Column(name = "senha", nullable = false)
+    private String senha;
+
+    @Column(name = "cargo", nullable = false)
     private String cargo;
+
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "telefone")
     private String telefone;
 
     @OneToMany(mappedBy = "funcionario")

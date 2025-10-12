@@ -3,6 +3,7 @@ package com.marcelo.ControleDeEstoque.Itens;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 import com.marcelo.ControleDeEstoque.Registros.RegistrosModel;
 import jakarta.persistence.*;
@@ -21,9 +22,15 @@ public class ItensModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
+
+    @Column(name = "nome", nullable = false)
     private String nome;
+
+    @Column(name = "descricao")
     private String descricao;
+
+    @Column(name = "quantidade", nullable = false)
     private int quantidade;
 
     @OneToMany(mappedBy = "item")
