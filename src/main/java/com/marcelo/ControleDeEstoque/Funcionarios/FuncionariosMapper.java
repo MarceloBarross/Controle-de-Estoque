@@ -1,7 +1,7 @@
 package com.marcelo.ControleDeEstoque.Funcionarios;
 
 public class FuncionariosMapper {
-    public static FuncionariosDTO toDTO(FuncionariosModel model) {
+    public static FuncionariosDTO map(FuncionariosModel model) {
         FuncionariosDTO dto = new FuncionariosDTO(
             model.getId(),
             model.getNome(),
@@ -14,7 +14,7 @@ public class FuncionariosMapper {
         return dto;
     }
 
-    public static FuncionariosModel toModel(FuncionariosDTO dto) {
+    public static FuncionariosModel map(FuncionariosDTO dto) {
         FuncionariosModel model = new FuncionariosModel(
             dto.getId(),
             dto.getNome(),

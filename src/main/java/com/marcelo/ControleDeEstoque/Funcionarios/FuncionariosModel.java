@@ -1,7 +1,7 @@
 package com.marcelo.ControleDeEstoque.Funcionarios;
 
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.List;
 import java.util.UUID;
 
 import com.marcelo.ControleDeEstoque.Registros.RegistrosModel;
@@ -38,5 +38,5 @@ public class FuncionariosModel {
     private String telefone;
 
     @OneToMany(mappedBy = "funcionario")
-    private Set<RegistrosModel> registros = new HashSet<>();
+    private List<RegistrosModel> registros;
 }

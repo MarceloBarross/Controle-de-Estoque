@@ -1,8 +1,7 @@
 package com.marcelo.ControleDeEstoque.Itens;
 
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import com.marcelo.ControleDeEstoque.Registros.RegistrosModel;
@@ -34,6 +33,6 @@ public class ItensModel {
     private int quantidade;
 
     @OneToMany(mappedBy = "item")
-    private Set<RegistrosModel> registros = new HashSet<>();
+    private List<RegistrosModel> registros;
     
 }
