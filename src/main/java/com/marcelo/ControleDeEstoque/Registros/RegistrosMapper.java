@@ -2,7 +2,7 @@ package com.marcelo.ControleDeEstoque.Registros;
 
 public class RegistrosMapper {
 
-    public static RegistrosModel map(RegistrosDTO dto){
+    public RegistrosModel map(RegistrosDTO dto){
         RegistrosModel model = new RegistrosModel(
             dto.getId(),
             dto.getDataHora(),
@@ -14,7 +14,7 @@ public class RegistrosMapper {
         return model;
     }
 
-    public static RegistrosDTO map(RegistrosModel model){
+    public RegistrosDTO map(RegistrosModel model){
         RegistrosDTO dto = new RegistrosDTO(
             model.getId(),
             model.getDataHora(),

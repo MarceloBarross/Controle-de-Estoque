@@ -2,7 +2,7 @@ package com.marcelo.ControleDeEstoque.Itens;
 
 public class ItensMapper {
 
-    public static ItensModel map(ItensDTO dto){
+    public ItensModel map(ItensDTO dto){
         ItensModel model = new ItensModel(
             dto.getId(),
             dto.getNome(),
@@ -13,7 +13,7 @@ public class ItensMapper {
         return model;
     }
 
-    public static ItensDTO map(ItensModel model){
+    public ItensDTO map(ItensModel model){
         ItensDTO dto = new ItensDTO(
             model.getId(),
             model.getNome(),
