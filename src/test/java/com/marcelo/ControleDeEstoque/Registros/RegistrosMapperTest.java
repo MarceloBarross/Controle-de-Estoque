@@ -8,18 +8,22 @@ import org.junit.jupiter.api.Test;
 
 
 public class RegistrosMapperTest {
+
+    private final RegistrosMapper mapper = new RegistrosMapper();
+
+
     @Test
     public void testToDTO() {
         RegistrosModel model = new RegistrosModel();
 
 
-            assertTrue(RegistrosMapper.map(model) instanceof RegistrosDTO);
+            assertTrue(mapper.map(model) instanceof RegistrosDTO);
     }
 
     @Test
     public void testToModel(){
         RegistrosDTO dto = new RegistrosDTO();
 
-            assertTrue(RegistrosMapper.map(dto) instanceof RegistrosModel);
+            assertTrue(mapper.map(dto) instanceof RegistrosModel);
     }
 }

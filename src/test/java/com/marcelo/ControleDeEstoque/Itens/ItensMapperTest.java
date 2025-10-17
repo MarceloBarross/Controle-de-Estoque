@@ -7,17 +7,19 @@ import org.junit.jupiter.api.Test;
 
 public class ItensMapperTest {
 
+    ItensMapper mapper = new ItensMapper();
+
     @Test
     public void testToDTO(){
         ItensModel model = new ItensModel();
 
-        assertTrue(ItensMapper.map(model) instanceof ItensDTO);
+        assertTrue(mapper.map(model) instanceof ItensDTO);
     }
 
     @Test
     public void testToModel(){
          ItensDTO dto = new ItensDTO();
 
-        assertTrue(ItensMapper.map(dto) instanceof ItensModel);
+        assertTrue(mapper.map(dto) instanceof ItensModel);
     }
 }
