@@ -1,5 +1,10 @@
 package com.marcelo.ControleDeEstoque.Itens;
 
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.marcelo.ControleDeEstoque.Registros.RegistrosService;
@@ -23,5 +28,16 @@ public class ItensSerice {
 
         registrosService.criaRegistros("CRIACAO", itensModel.getQuantidade(), itensModel);
         return itensMapper.map(itensModel);
+    }
+
+    public ItensDTO listarItensPorId(UUID id){
+        Optional<ItensModel> model = itensRepository.findById(id);
+        return model.map(itensMapper::map).orElse(null);
+    }
+
+    public List<ItensDTO> listarTodosItens(){
+        List<ItensModel> models = itensRepository.findAll();
+        List<ItensDTO> dtos = models.stream().map(itensMapper::map).collect(Collectors.toList());
+        return dtos;
     }
 }
