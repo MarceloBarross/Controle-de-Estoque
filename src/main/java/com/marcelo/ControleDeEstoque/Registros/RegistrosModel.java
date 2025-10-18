@@ -9,9 +9,11 @@ import com.marcelo.ControleDeEstoque.Itens.ItensModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Builder
 @Entity
 @Table(name = "registros")
 @Getter
