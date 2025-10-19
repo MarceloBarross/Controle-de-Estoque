@@ -1,5 +1,8 @@
 package com.marcelo.ControleDeEstoque.Registros;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class RegistrosMapper {
 
     public RegistrosModel map(RegistrosDTO dto){
