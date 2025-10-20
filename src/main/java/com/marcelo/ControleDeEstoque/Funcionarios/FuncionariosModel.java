@@ -4,6 +4,7 @@ package com.marcelo.ControleDeEstoque.Funcionarios;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marcelo.ControleDeEstoque.Registros.RegistrosModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,5 +39,6 @@ public class FuncionariosModel {
     private String telefone;
 
     @OneToMany(mappedBy = "funcionario")
+    @JsonIgnore
     private List<RegistrosModel> registros;
 }

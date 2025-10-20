@@ -4,6 +4,7 @@ package com.marcelo.ControleDeEstoque.Itens;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marcelo.ControleDeEstoque.Registros.RegistrosModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ public class ItensModel {
     private int quantidade;
 
     @OneToMany(mappedBy = "item")
+    @JsonIgnore
     private List<RegistrosModel> registros;
     
 }
