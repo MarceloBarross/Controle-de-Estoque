@@ -12,6 +12,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.marcelo.ControleDeEstoque.Funcionarios.FuncionariosModel;
 import com.marcelo.ControleDeEstoque.Registros.RegistrosService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ItensService {
     
@@ -25,6 +27,7 @@ public class ItensService {
         this.registrosService = registrosService;
     }
 
+    @Transactional
     public ItensDTO criarItens(ItensDTO item, FuncionariosModel funcionariosModel){
         ItensModel itensModel = itensMapper.map(item);
         itensModel = itensRepository.save(itensModel);
@@ -44,15 +47,18 @@ public class ItensService {
         return dtos;
     }
 
-    public void deletarItem(UUID id, FuncionariosModel funcionariosModel){
+    @Transactional
+    public ItensDTO deletarItem(UUID id, FuncionariosModel funcionariosModel){
         ItensModel itemDeletado = itensRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Item com ID " + id + " não encontrado."));
         
-        itensRepository.delete(itemDeletado);
         registrosService.criaRegistros("EXCLUSAO", itemDeletado.getQuantidade(), itemDeletado, funcionariosModel);
+        itensRepository.delete(itemDeletado);
+        return itensMapper.map(itemDeletado);
     }
 
+    @Transactional
+    public ItensDTO entradaQtd(UUID id, int qtd, FuncionariosModel funcionariosModel){
 
-    public ItensDTO adicionarEntrada(UUID id, int qtd, FuncionariosModel funcionariosModel){
         ItensModel itemProcurado = itensRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item com ID " + id + " não encontrado."));
         
         itemProcurado.setQuantidade(itemProcurado.getQuantidade()+qtd);
@@ -62,14 +68,20 @@ public class ItensService {
         return itensMapper.map(itemProcurado);
     }
 
-    public ItensDTO adicionarSaida(UUID id, int qtd, FuncionariosModel funcionariosModel){
+    @Transactional
+    public ItensDTO saidaQtd(UUID id, int qtd, FuncionariosModel funcionariosModel){
+
         ItensModel itemProcurado = itensRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item com ID " + id + " não encontrado."));
+        int quantidadeFinal = itemProcurado.getQuantidade()-qtd;
         
-        itemProcurado.setQuantidade(itemProcurado.getQuantidade()-qtd);
-        itensRepository.save(itemProcurado);
-        registrosService.criaRegistros("SAIDA", qtd, itemProcurado, funcionariosModel);
-        
-        return itensMapper.map(itemProcurado);
+        if (quantidadeFinal < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quantidade em estoque não pode ser negativa");
+        }else{
+            itemProcurado.setQuantidade(quantidadeFinal);
+            itensRepository.save(itemProcurado);
+            registrosService.criaRegistros("SAIDA", qtd, itemProcurado, funcionariosModel);
+            return itensMapper.map(itemProcurado);
+        }
     }
 
     public ItensDTO atualizarItem(UUID id, ItensDTO data, FuncionariosModel funcionariosModel){
