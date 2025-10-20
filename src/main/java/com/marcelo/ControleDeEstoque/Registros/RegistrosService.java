@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.marcelo.ControleDeEstoque.Funcionarios.FuncionariosModel;
 import com.marcelo.ControleDeEstoque.Funcionarios.FuncionariosRepository;
 import com.marcelo.ControleDeEstoque.Itens.ItensModel;
 
@@ -18,21 +19,19 @@ public class RegistrosService {
 
     private final RegistrosMapper registrosMapper;
     private final RegistrosRepository registrosRepository; 
-    private final FuncionariosRepository funcionariosRepository;
     
     public RegistrosService(RegistrosMapper registrosMapper, RegistrosRepository registrosRepository, FuncionariosRepository funcionariosRepository){
         this.registrosMapper = registrosMapper;
         this.registrosRepository = registrosRepository;
-        this.funcionariosRepository = funcionariosRepository;
     }
 
-    public RegistrosDTO criaRegistros(String tipo, int quantidade, ItensModel item){
+    public RegistrosDTO criaRegistros(String tipo, int quantidade, ItensModel item, FuncionariosModel funcionario){
 
         RegistrosModel registro = RegistrosModel.builder().
             tipo(tipo).
             quantidade(quantidade).
             item(item).
-            funcionario(funcionariosRepository.findById(UUID.fromString("8c9ba8b2-c04d-4b15-88a1-388a4613d3ec")).orElse(null)). //pegar com spring security
+            funcionario(funcionario).
             build();
 
         registro = registrosRepository.save(registro);
