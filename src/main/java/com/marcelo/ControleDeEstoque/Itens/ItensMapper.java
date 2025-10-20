@@ -1,5 +1,8 @@
 package com.marcelo.ControleDeEstoque.Itens;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ItensMapper {
 
     public ItensModel map(ItensDTO dto){
