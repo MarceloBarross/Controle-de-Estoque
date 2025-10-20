@@ -16,7 +16,7 @@ public class ItensDTO {
     private UUID id;
     private String nome;
     private String descricao;
-    private int quantidade;
+    private Integer quantidade;
     private List<RegistrosModel> registros;
     
 }
