@@ -30,8 +30,10 @@ public class RegistrosService {
         RegistrosModel registro = RegistrosModel.builder().
             tipo(tipo).
             quantidade(quantidade).
-            item(item).
-            funcionario(funcionario).
+            itemId(item.getId()).
+            itemNome(item.getNome()).
+            funcionarioModel(funcionario).
+            funcionarioNome(funcionario.getNome()).
             build();
 
         registro = registrosRepository.save(registro);
@@ -39,6 +41,24 @@ public class RegistrosService {
         return registrosMapper.map(registro);
 
     }
+
+    public RegistrosDTO criaRegistros(String tipo, ItensModel item, FuncionariosModel funcionario){
+
+        RegistrosModel registro = RegistrosModel.builder().
+            tipo(tipo).
+            quantidade(item.getQuantidade()).
+            itemId(item.getId()).
+            itemNome(item.getNome()).
+            funcionarioModel(funcionario).
+            funcionarioNome(funcionario.getNome()).
+            build();
+
+        registro = registrosRepository.save(registro);
+
+        return registrosMapper.map(registro);
+
+    }
+
 
     public List<RegistrosDTO> listarTodos(){
         List<RegistrosModel> registrosModel = registrosRepository.findAll();

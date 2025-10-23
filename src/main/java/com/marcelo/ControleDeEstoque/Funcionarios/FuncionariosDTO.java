@@ -20,4 +20,5 @@ public class FuncionariosDTO {
     private String email;
     private String telefone;
     private List<RegistrosModel> registros;
+    private boolean ativo;
 }

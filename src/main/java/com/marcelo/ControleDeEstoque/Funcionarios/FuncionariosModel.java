@@ -38,7 +38,10 @@ public class FuncionariosModel {
     @Column(name = "telefone")
     private String telefone;
 
-    @OneToMany(mappedBy = "funcionario")
+    @OneToMany(mappedBy = "funcionarioModel")
     @JsonIgnore
     private List<RegistrosModel> registros;
+
+    @Column(name = "ativo")
+    private boolean ativo;
 }

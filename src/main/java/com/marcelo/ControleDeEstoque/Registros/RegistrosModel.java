@@ -36,11 +36,19 @@ public class RegistrosModel {
     @Column(name = "quantidade", nullable = false)
     private int quantidade;
 
-    @ManyToOne
-    @JoinColumn(name = "item_id", nullable = false)
-    private ItensModel item;
+    
+    @Column(name = "item_id", nullable = true)
+    private UUID itemId;
+
+    
+    @Column(name = "item_nome", nullable = false)
+    private String itemNome;
     
     @ManyToOne
     @JoinColumn(name = "funcionario_id", nullable = false)
-    private FuncionariosModel funcionario;
+    private FuncionariosModel funcionarioModel;
+
+    
+    @Column(name = "funcionario_nome", nullable = false)
+    private String funcionarioNome;
 }

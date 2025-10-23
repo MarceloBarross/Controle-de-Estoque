@@ -1,7 +1,5 @@
 package com.marcelo.ControleDeEstoque.Itens;
 
-import com.marcelo.ControleDeEstoque.Registros.RegistrosModel;
-import java.util.List;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +15,5 @@ public class ItensDTO {
     private String nome;
     private String descricao;
     private Integer quantidade;
-    private List<RegistrosModel> registros;
     
 }

@@ -11,8 +11,10 @@ public class RegistrosMapper {
             dto.getDataHora(),
             dto.getTipo(),
             dto.getQuantidade(),
-            dto.getItem(),
-            dto.getFuncionario()
+            dto.getItemId(),
+            dto.getItemNome(),
+            dto.getFuncionarioModel(),
+            dto.getFuncionarioNome()
         );
         return model;
     }
@@ -23,8 +25,10 @@ public class RegistrosMapper {
             model.getDataHora(),
             model.getTipo(),
             model.getQuantidade(),
-            model.getItem(),
-            model.getFuncionario()
+            model.getItemId(),
+            model.getItemNome(),
+            model.getFuncionarioModel(),
+            model.getFuncionarioNome()
         );
         return dto;
     }

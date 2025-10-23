@@ -32,7 +32,7 @@ public class ItensService {
         ItensModel itensModel = itensMapper.map(item);
         itensModel = itensRepository.save(itensModel);
 
-        registrosService.criaRegistros("CRIACAO", itensModel.getQuantidade(), itensModel, funcionariosModel);
+        registrosService.criaRegistros("CRIACAO", itensModel, funcionariosModel);
         return itensMapper.map(itensModel);
     }
 
@@ -51,7 +51,7 @@ public class ItensService {
     public ItensDTO deletarItem(UUID id, FuncionariosModel funcionariosModel){
         ItensModel itemDeletado = itensRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Item com ID " + id + " não encontrado."));
         
-        registrosService.criaRegistros("EXCLUSAO", itemDeletado.getQuantidade(), itemDeletado, funcionariosModel);
+        registrosService.criaRegistros("EXCLUSAO", itemDeletado, funcionariosModel);
         itensRepository.delete(itemDeletado);
         return itensMapper.map(itemDeletado);
     }

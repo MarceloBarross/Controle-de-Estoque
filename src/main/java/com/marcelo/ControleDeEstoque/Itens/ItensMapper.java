@@ -10,8 +10,7 @@ public class ItensMapper {
             dto.getId(),
             dto.getNome(),
             dto.getDescricao(),
-            dto.getQuantidade(),
-            dto.getRegistros()
+            dto.getQuantidade()
         );
         return model;
     }
@@ -21,8 +20,7 @@ public class ItensMapper {
             model.getId(),
             model.getNome(),
             model.getDescricao(),
-            model.getQuantidade(),
-            model.getRegistros()
+            model.getQuantidade()
         );
         return dto;
     }
