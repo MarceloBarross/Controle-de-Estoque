@@ -1,20 +1,23 @@
 package com.marcelo.ControleDeEstoque.Registros;
 
+
 import org.springframework.stereotype.Component;
 
 @Component
 public class RegistrosMapper {
 
     public RegistrosModel map(RegistrosDTO dto){
+
         RegistrosModel model = new RegistrosModel(
             dto.getId(),
-            dto.getDataHora(),
+            dto.getTabelaAfetada(),
             dto.getTipo(),
-            dto.getQuantidade(),
-            dto.getItemId(),
-            dto.getItemNome(),
-            dto.getFuncionarioModel(),
-            dto.getFuncionarioNome()
+            dto.getRegistroAfetadoId(),
+            dto.getValorAnterior(),
+            dto.getValorNovo(),
+            dto.getIdUsuario(),
+            dto.getUsuarioNome(),
+            dto.getDataHora()
         );
         return model;
     }
@@ -22,13 +25,14 @@ public class RegistrosMapper {
     public RegistrosDTO map(RegistrosModel model){
         RegistrosDTO dto = new RegistrosDTO(
             model.getId(),
-            model.getDataHora(),
+            model.getTabelaAfetada(),
             model.getTipo(),
-            model.getQuantidade(),
-            model.getItemId(),
-            model.getItemNome(),
-            model.getFuncionarioModel(),
-            model.getFuncionarioNome()
+            model.getRegistroAfetadoId(),
+            model.getValorAnterior(),
+            model.getValorNovo(),
+            model.getIdUsuario(),
+            model.getUsuarioNome(),
+            model.getDataHora()
         );
         return dto;
     }

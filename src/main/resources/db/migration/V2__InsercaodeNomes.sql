@@ -4,6 +4,4 @@ ALTER TABLE registros ADD COLUMN item_nome VARCHAR(255);
 
 ALTER TABLE registros ADD COLUMN funcionario_nome VARCHAR(255);
 
-ALTER TABLE funcionarios ADD COLUMN ativo BOOLEAN DEFAULT TRUE; 
-
 ALTER TABLE registros ALTER COLUMN quantidade DROP NOT NULL; 

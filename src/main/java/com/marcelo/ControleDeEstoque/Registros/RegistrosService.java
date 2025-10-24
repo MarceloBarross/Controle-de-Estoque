@@ -10,9 +10,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.marcelo.ControleDeEstoque.Funcionarios.FuncionariosModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marcelo.ControleDeEstoque.Funcionarios.FuncionariosRepository;
-import com.marcelo.ControleDeEstoque.Itens.ItensModel;
 
 @Service
 public class RegistrosService {
@@ -20,37 +19,21 @@ public class RegistrosService {
     private final RegistrosMapper registrosMapper;
     private final RegistrosRepository registrosRepository; 
     
-    public RegistrosService(RegistrosMapper registrosMapper, RegistrosRepository registrosRepository, FuncionariosRepository funcionariosRepository){
+    public RegistrosService(RegistrosMapper registrosMapper, RegistrosRepository registrosRepository, FuncionariosRepository funcionariosRepository, ObjectMapper objectMapper){
         this.registrosMapper = registrosMapper;
         this.registrosRepository = registrosRepository;
     }
 
-    public RegistrosDTO criaRegistros(String tipo, int quantidade, ItensModel item, FuncionariosModel funcionario){
+    public RegistrosDTO criaRegistros(String tbAfetada, String tipo, UUID idAfetado, String valorA, String valorD, UUID idUsuario, String usuarioNome){
 
         RegistrosModel registro = RegistrosModel.builder().
+            tabelaAfetada(tbAfetada).
             tipo(tipo).
-            quantidade(quantidade).
-            itemId(item.getId()).
-            itemNome(item.getNome()).
-            funcionarioModel(funcionario).
-            funcionarioNome(funcionario.getNome()).
-            build();
-
-        registro = registrosRepository.save(registro);
-
-        return registrosMapper.map(registro);
-
-    }
-
-    public RegistrosDTO criaRegistros(String tipo, ItensModel item, FuncionariosModel funcionario){
-
-        RegistrosModel registro = RegistrosModel.builder().
-            tipo(tipo).
-            quantidade(item.getQuantidade()).
-            itemId(item.getId()).
-            itemNome(item.getNome()).
-            funcionarioModel(funcionario).
-            funcionarioNome(funcionario.getNome()).
+            registroAfetadoId(idAfetado).
+            valorAnterior(valorA).
+            valorNovo(valorD).
+            idUsuario(idUsuario).
+            usuarioNome(usuarioNome).
             build();
 
         registro = registrosRepository.save(registro);
@@ -70,5 +53,4 @@ public class RegistrosService {
         Optional<RegistrosModel> registrOptional = registrosRepository.findById(id);
         return registrOptional.map(registrosMapper::map).orElse(null);
     }
-
 }

@@ -8,9 +8,7 @@ public class FuncionariosMapper {
             model.getSenha(),
             model.getCargo(),
             model.getEmail(),
-            model.getTelefone(),
-            model.getRegistros(),
-            model.isAtivo()
+            model.getTelefone()
         );
         return dto;
     }
@@ -22,9 +20,7 @@ public class FuncionariosMapper {
             dto.getSenha(),
             dto.getCargo(),
             dto.getEmail(),
-            dto.getTelefone(),
-            dto.getRegistros(),
-            dto.isAtivo()
+            dto.getTelefone()
         );
         return model;
     }

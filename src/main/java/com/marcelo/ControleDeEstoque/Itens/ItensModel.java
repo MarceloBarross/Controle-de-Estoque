@@ -18,6 +18,13 @@ import lombok.Setter;
 @Setter
 public class ItensModel {
 
+    public ItensModel(ItensModel item){
+        this.id = item.getId();
+        this.nome = item.getNome();
+        this.descricao = item.getDescricao();
+        this.quantidade = item.getQuantidade();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

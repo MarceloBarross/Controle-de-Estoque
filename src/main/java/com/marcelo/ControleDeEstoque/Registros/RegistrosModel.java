@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import java.util.UUID;
-import com.marcelo.ControleDeEstoque.Funcionarios.FuncionariosModel;
-import com.marcelo.ControleDeEstoque.Itens.ItensModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.AllArgsConstructor;
@@ -26,29 +24,28 @@ public class RegistrosModel {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "data_registro", updatable = false)
-    @CreationTimestamp
-    private LocalDateTime dataHora;
+    @Column(name = "tabela_afetada", nullable = false)
+    private String tabelaAfetada;
 
     @Column(name = "tipo", nullable = false)
     private String tipo;
 
-    @Column(name = "quantidade", nullable = false)
-    private int quantidade;
+    @Column(name = "id_registro_afetado", nullable = false)
+    private UUID registroAfetadoId;
 
-    
-    @Column(name = "item_id", nullable = true)
-    private UUID itemId;
+    @Column(name = "valor_anterior")
+    private String valorAnterior;
 
-    
-    @Column(name = "item_nome", nullable = false)
-    private String itemNome;
-    
-    @ManyToOne
-    @JoinColumn(name = "funcionario_id", nullable = false)
-    private FuncionariosModel funcionarioModel;
+    @Column(name = "valor_novo")
+    private String valorNovo;
 
-    
-    @Column(name = "funcionario_nome", nullable = false)
-    private String funcionarioNome;
+    @Column(name = "id_usuario", nullable = false)
+    private UUID idUsuario;
+
+    @Column(name = "usuario", nullable = false)
+    private String usuarioNome;
+
+    @Column(name = "data_registro", updatable = false)
+    @CreationTimestamp
+    private LocalDateTime dataHora;
 }

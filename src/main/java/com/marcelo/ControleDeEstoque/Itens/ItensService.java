@@ -5,14 +5,14 @@ import java.util.stream.Collectors;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.marcelo.ControleDeEstoque.Funcionarios.FuncionariosModel;
 import com.marcelo.ControleDeEstoque.Registros.RegistrosService;
+import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.transaction.Transactional;
+
 
 @Service
 public class ItensService {
@@ -20,6 +20,9 @@ public class ItensService {
     private final ItensMapper itensMapper;
     private final ItensRepository itensRepository;
     private final RegistrosService registrosService; 
+
+    
+
     
     public ItensService(ItensMapper itensMapper, ItensRepository itensRepository, RegistrosService registrosService){
         this.itensMapper = itensMapper;
@@ -32,7 +35,16 @@ public class ItensService {
         ItensModel itensModel = itensMapper.map(item);
         itensModel = itensRepository.save(itensModel);
 
-        registrosService.criaRegistros("CRIACAO", itensModel, funcionariosModel);
+        registrosService.criaRegistros(
+            "itens", 
+            "CRIACAO", 
+            itensModel.getId(), 
+            null, 
+            itensMapper.serializeForAudit(itensModel), 
+            funcionariosModel.getId(), 
+            funcionariosModel.getNome()
+        );
+
         return itensMapper.map(itensModel);
     }
 
@@ -48,12 +60,21 @@ public class ItensService {
     }
 
     @Transactional
-    public ItensDTO deletarItem(UUID id, FuncionariosModel funcionariosModel){
+    public void deletarItem(UUID id, FuncionariosModel funcionariosModel){
+        
         ItensModel itemDeletado = itensRepository.findById(id).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Item com ID " + id + " não encontrado."));
         
-        registrosService.criaRegistros("EXCLUSAO", itemDeletado, funcionariosModel);
+        registrosService.criaRegistros(
+            "itens", 
+            "EXCLUSAO", 
+            id, 
+            itensMapper.serializeForAudit(itemDeletado), 
+            null, 
+            funcionariosModel.getId(), 
+            funcionariosModel.getNome()
+            );
+            
         itensRepository.delete(itemDeletado);
-        return itensMapper.map(itemDeletado);
     }
 
     @Transactional
@@ -61,32 +82,61 @@ public class ItensService {
 
         ItensModel itemProcurado = itensRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item com ID " + id + " não encontrado."));
         
+        ItensModel itemProcuradoAntesCopia = new ItensModel(itemProcurado);
+        
         itemProcurado.setQuantidade(itemProcurado.getQuantidade()+qtd);
+
         itensRepository.save(itemProcurado);
-        registrosService.criaRegistros("ENTRADA", qtd, itemProcurado, funcionariosModel);    
+        
+        registrosService.criaRegistros(
+            "itens", 
+            "ENTRADA", 
+            id, 
+            itensMapper.serializeForAudit(itemProcuradoAntesCopia), 
+            itensMapper.serializeForAudit(itemProcurado), 
+            funcionariosModel.getId(), 
+            funcionariosModel.getNome()
+            );
 
         return itensMapper.map(itemProcurado);
+        
     }
 
     @Transactional
     public ItensDTO saidaQtd(UUID id, int qtd, FuncionariosModel funcionariosModel){
 
         ItensModel itemProcurado = itensRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item com ID " + id + " não encontrado."));
+
         int quantidadeFinal = itemProcurado.getQuantidade()-qtd;
         
         if (quantidadeFinal < 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quantidade em estoque não pode ser negativa");
         }else{
+            ItensModel itemProcuradoAntesCopia = new ItensModel(itemProcurado);
             itemProcurado.setQuantidade(quantidadeFinal);
+
             itensRepository.save(itemProcurado);
-            registrosService.criaRegistros("SAIDA", qtd, itemProcurado, funcionariosModel);
+            
+            registrosService.criaRegistros(
+                "itens", 
+                "SAIDA", 
+                id, 
+                itensMapper.serializeForAudit(itemProcuradoAntesCopia), 
+                itensMapper.serializeForAudit(itemProcurado),  
+                funcionariosModel.getId(), 
+                funcionariosModel.getNome()
+                );
+
             return itensMapper.map(itemProcurado);
         }
     }
 
+    @Transactional
     public ItensDTO atualizarItem(UUID id, ItensDTO data, FuncionariosModel funcionariosModel){
         ItensModel itemProcurado = itensRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item com ID " + id + " não encontrado."));
         
+        ItensModel itemProcuradoAntesCopia = new ItensModel(itemProcurado);
+
         if (data.getNome() != null) {
             itemProcurado.setNome(data.getNome());
         }
@@ -101,10 +151,18 @@ public class ItensService {
             }
         }
 
-        ItensModel itemAtualizado = itensRepository.save(itemProcurado);
+        itensRepository.save(itemProcurado);
 
-        registrosService.criaRegistros("ALTERACAO", itemAtualizado.getQuantidade(), itemAtualizado, funcionariosModel);
+        registrosService.criaRegistros(
+                "itens", 
+                "ALTERACAO", 
+                id, 
+                itensMapper.serializeForAudit(itemProcuradoAntesCopia), 
+                itensMapper.serializeForAudit(itemProcurado), 
+                funcionariosModel.getId(), 
+                funcionariosModel.getNome()
+                );
 
-        return itensMapper.map(itemAtualizado);
+        return itensMapper.map(itemProcurado);
     }
 }
