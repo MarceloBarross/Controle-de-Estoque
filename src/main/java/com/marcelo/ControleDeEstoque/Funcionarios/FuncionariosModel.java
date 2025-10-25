@@ -15,6 +15,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FuncionariosModel {
+
+    public FuncionariosModel(FuncionariosModel funcionariosModel){
+        this.id = funcionariosModel.getId();
+        this.nome = funcionariosModel.getNome();
+        this.senha = funcionariosModel.getSenha();
+        this.cargo = funcionariosModel.getCargo();
+        this.email = funcionariosModel.getEmail();
+        this.telefone = funcionariosModel.getTelefone();
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
