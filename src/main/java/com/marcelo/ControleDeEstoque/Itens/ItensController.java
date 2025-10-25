@@ -32,13 +32,13 @@ public class ItensController {
 
     public ItensController(ItensService itensService, FuncionariosRepository funcionariosRepository){
         this.itensService = itensService;
-        this.funcionarioAutenticado = funcionariosRepository.findById(UUID.fromString("8c9ba8b2-c04d-4b15-88a1-388a4613d3ec")).orElse(null);
+        this.funcionarioAutenticado = funcionariosRepository.findById(UUID.fromString("cfa48d16-0a2c-4621-aaf4-16010cf59760")).orElse(null);
     }
 
     @PostMapping("/POST")
-    public ResponseEntity<String> criarItem(@RequestBody ItensDTO itensDTO){
+    public ResponseEntity<ItensDTO> criarItem(@RequestBody ItensDTO itensDTO){
         ItensDTO itemCriado = itensService.criarItens(itensDTO,funcionarioAutenticado);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Item " + itemCriado.getNome() + " criado com sucesso");
+        return ResponseEntity.status(HttpStatus.CREATED).body(itemCriado);
     } 
 
     @GetMapping("/GET")
@@ -74,7 +74,7 @@ public class ItensController {
     }
 
     @DeleteMapping("/DELETE/{id}")
-    public ResponseEntity<?> deletarItem(@PathVariable UUID id){
+    public ResponseEntity<Void> deletarItem(@PathVariable UUID id){
         itensService.deletarItem(id, funcionarioAutenticado);
         return ResponseEntity.noContent().build();
     }
