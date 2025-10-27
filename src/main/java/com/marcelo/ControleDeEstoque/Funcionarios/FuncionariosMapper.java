@@ -1,11 +1,11 @@
-package com.marcelo.ControleDeEstoque.Funcionarios;
+package com.marcelo.ControleDeEstoque.funcionarios;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.marcelo.ControleDeEstoque.Itens.ItensService;
+import com.marcelo.ControleDeEstoque.itens.ItensService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.marcelo.ControleDeEstoque.Funcionarios;
+package com.marcelo.ControleDeEstoque.funcionarios;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +28,7 @@ public class FuncionariosController {
 
     public FuncionariosController(FuncionariosService funcionariosService, FuncionariosRepository funcionariosRepository){
         this.funcionariosService = funcionariosService;
-        this.funcionariosAutenticado = funcionariosRepository.findById(UUID.fromString("cfa48d16-0a2c-4621-aaf4-16010cf59760")).orElse(null);
+        this.funcionariosAutenticado = funcionariosRepository.findById(UUID.fromString("a05a8d55-08c5-4642-b026-e63327e7bb9f")).orElse(null);
     }
 
 

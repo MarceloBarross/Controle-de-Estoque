@@ -2,6 +2,10 @@ package com.marcelo.ControleDeEstoque.Funcionarios;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.marcelo.ControleDeEstoque.funcionarios.FuncionariosDTO;
+import com.marcelo.ControleDeEstoque.funcionarios.FuncionariosMapper;
+import com.marcelo.ControleDeEstoque.funcionarios.FuncionariosModel;
+
 public class FuncionariosMapperTest {
 
     private final FuncionariosMapper mapper = new FuncionariosMapper();

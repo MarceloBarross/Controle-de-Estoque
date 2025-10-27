@@ -4,6 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import com.marcelo.ControleDeEstoque.itens.ItensDTO;
+import com.marcelo.ControleDeEstoque.itens.ItensMapper;
+import com.marcelo.ControleDeEstoque.itens.ItensModel;
+
 
 public class ItensMapperTest {
 

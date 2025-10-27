@@ -1,4 +1,4 @@
-package com.marcelo.ControleDeEstoque.Itens;
+package com.marcelo.ControleDeEstoque.itens;
 
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -8,8 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.marcelo.ControleDeEstoque.Funcionarios.FuncionariosModel;
-import com.marcelo.ControleDeEstoque.Registros.RegistrosService;
+import com.marcelo.ControleDeEstoque.funcionarios.FuncionariosModel;
+import com.marcelo.ControleDeEstoque.registros.RegistrosService;
+
 import org.springframework.transaction.annotation.Transactional;
 
 

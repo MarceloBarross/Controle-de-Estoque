@@ -1,7 +1,14 @@
-package com.marcelo.ControleDeEstoque.Funcionarios;
+package com.marcelo.ControleDeEstoque.funcionarios;
 
 
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +21,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FuncionariosModel {
+public class FuncionariosModel implements UserDetails{
 
     public FuncionariosModel(FuncionariosModel funcionariosModel){
         this.id = funcionariosModel.getId();
@@ -34,12 +41,37 @@ public class FuncionariosModel {
     @Column(name = "senha", nullable = false)
     private String senha;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "cargo", nullable = false)
-    private String cargo;
+    private FuncionariosCargo cargo;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "telefone")
     private String telefone;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.cargo == FuncionariosCargo.ADMIN) {
+            return List.of(
+                new SimpleGrantedAuthority("ROLE_ADMIN"),
+                new SimpleGrantedAuthority("ROLE_USER")
+            );
+        }else{
+            return List.of(
+                new SimpleGrantedAuthority("ROLE_USER")
+            );
+        }
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
 }

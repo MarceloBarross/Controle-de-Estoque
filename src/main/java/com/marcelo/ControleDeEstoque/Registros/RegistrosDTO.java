@@ -1,4 +1,4 @@
-package com.marcelo.ControleDeEstoque.Registros;
+package com.marcelo.ControleDeEstoque.registros;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

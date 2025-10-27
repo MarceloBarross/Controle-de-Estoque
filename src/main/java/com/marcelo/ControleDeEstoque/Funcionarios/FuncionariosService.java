@@ -1,20 +1,24 @@
-package com.marcelo.ControleDeEstoque.Funcionarios;
+package com.marcelo.ControleDeEstoque.funcionarios;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.marcelo.ControleDeEstoque.Registros.RegistrosService;
+import com.marcelo.ControleDeEstoque.registros.RegistrosService;
+
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-public class FuncionariosService {
+public class FuncionariosService implements UserDetailsService{
     private final FuncionariosMapper funcionariosMapper;
     private final FuncionariosRepository funcionariosRepository;
     private final RegistrosService registrosService;
@@ -113,5 +117,10 @@ public class FuncionariosService {
 
         return funcionariosMapper.map(funcionarioProcurado);
 
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return funcionariosRepository.findByEmail(email);
     }
 }

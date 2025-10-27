@@ -1,4 +1,4 @@
-package com.marcelo.ControleDeEstoque.Funcionarios;
+package com.marcelo.ControleDeEstoque.funcionarios;
 
 import java.util.UUID;
 
@@ -14,7 +14,7 @@ public class FuncionariosDTO {
     private UUID id;
     private String nome;
     private String senha;
-    private String cargo;
+    private FuncionariosCargo cargo;
     private String email;
     private String telefone;
 }

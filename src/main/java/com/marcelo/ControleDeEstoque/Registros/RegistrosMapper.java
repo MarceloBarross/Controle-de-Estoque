@@ -1,4 +1,4 @@
-package com.marcelo.ControleDeEstoque.Registros;
+package com.marcelo.ControleDeEstoque.registros;
 
 
 import org.springframework.stereotype.Component;

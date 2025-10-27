@@ -1,4 +1,4 @@
-package com.marcelo.ControleDeEstoque.Itens;
+package com.marcelo.ControleDeEstoque.itens;
 
 
 

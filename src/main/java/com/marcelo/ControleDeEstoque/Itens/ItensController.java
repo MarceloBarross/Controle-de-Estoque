@@ -1,12 +1,12 @@
-package com.marcelo.ControleDeEstoque.Itens;
+package com.marcelo.ControleDeEstoque.itens;
 
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.marcelo.ControleDeEstoque.Funcionarios.FuncionariosModel;
-import com.marcelo.ControleDeEstoque.Funcionarios.FuncionariosRepository;
+import com.marcelo.ControleDeEstoque.funcionarios.FuncionariosModel;
+import com.marcelo.ControleDeEstoque.funcionarios.FuncionariosRepository;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,7 +32,7 @@ public class ItensController {
 
     public ItensController(ItensService itensService, FuncionariosRepository funcionariosRepository){
         this.itensService = itensService;
-        this.funcionarioAutenticado = funcionariosRepository.findById(UUID.fromString("cfa48d16-0a2c-4621-aaf4-16010cf59760")).orElse(null);
+        this.funcionarioAutenticado = funcionariosRepository.findById(UUID.fromString("2a1b89e3-23b8-48c0-a0ff-c9c515a40943")).orElse(null);
     }
 
     @PostMapping("/POST")

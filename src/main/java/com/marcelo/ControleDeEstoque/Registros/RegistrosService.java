@@ -1,4 +1,4 @@
-package com.marcelo.ControleDeEstoque.Registros;
+package com.marcelo.ControleDeEstoque.registros;
 
 
 
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.marcelo.ControleDeEstoque.Funcionarios.FuncionariosRepository;
+import com.marcelo.ControleDeEstoque.funcionarios.FuncionariosRepository;
 
 @Service
 public class RegistrosService {
