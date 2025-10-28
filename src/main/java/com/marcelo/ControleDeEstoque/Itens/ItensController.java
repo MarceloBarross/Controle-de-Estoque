@@ -61,14 +61,14 @@ public class ItensController {
     
     @PutMapping("/PUT/entrada/{id}")
     public ResponseEntity<ItensDTO> entradaQtd(@PathVariable UUID id, @RequestBody QtdDTO qtdDTO) {
-        ItensDTO itemAtualizado = itensService.entradaQtd(id, qtdDTO.getQuantidade(), funcionarioAutenticado);
+        ItensDTO itemAtualizado = itensService.entradaQtd(id, qtdDTO.quantidade(), funcionarioAutenticado);
         
         return ResponseEntity.ok(itemAtualizado);
     }
     
     @PutMapping("/PUT/saida/{id}")
     public ResponseEntity<ItensDTO> saidaQtd(@PathVariable UUID id, @RequestBody QtdDTO qtdDTO) {
-        ItensDTO itemAtualizado = itensService.saidaQtd(id, qtdDTO.getQuantidade(), funcionarioAutenticado);
+        ItensDTO itemAtualizado = itensService.saidaQtd(id, qtdDTO.quantidade(), funcionarioAutenticado);
         
         return ResponseEntity.ok(itemAtualizado);
     }
