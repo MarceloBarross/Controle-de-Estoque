@@ -48,7 +48,7 @@ _API RESTful desenvolvida com Spring Boot para gerenciamento de estoque, incluin
 
 ---
 
-## ⚙️ Configuração e Instalação
+## Configuração e Instalação
 
 1.  **Clone o Repositório:**
     ```bash
