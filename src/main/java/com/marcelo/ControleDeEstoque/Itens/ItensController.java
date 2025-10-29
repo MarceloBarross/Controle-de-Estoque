@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,16 +29,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class ItensController {
     
     private final ItensService itensService;
-    private final FuncionariosModel funcionarioAutenticado;
 
     public ItensController(ItensService itensService, FuncionariosRepository funcionariosRepository){
         this.itensService = itensService;
-        this.funcionarioAutenticado = funcionariosRepository.findById(UUID.fromString("2a1b89e3-23b8-48c0-a0ff-c9c515a40943")).orElse(null);
     }
 
     @PostMapping("/POST")
-    public ResponseEntity<ItensDTO> criarItem(@RequestBody ItensDTO itensDTO){
-        ItensDTO itemCriado = itensService.criarItens(itensDTO,funcionarioAutenticado);
+    public ResponseEntity<ItensDTO> criarItem(@RequestBody ItensDTO itensDTO, Authentication auth){
+        ItensDTO itemCriado = itensService.criarItens(itensDTO, (FuncionariosModel) auth.getPrincipal());
         return ResponseEntity.status(HttpStatus.CREATED).body(itemCriado);
     } 
 
@@ -53,29 +52,29 @@ public class ItensController {
     }
 
     @PutMapping("/PUT/{id}")
-    public ResponseEntity<ItensDTO> atualizarItem(@PathVariable UUID id, @RequestBody ItensDTO data) {
-        ItensDTO itemAtualizado = itensService.atualizarItem(id, data, funcionarioAutenticado);
+    public ResponseEntity<ItensDTO> atualizarItem(@PathVariable UUID id, @RequestBody ItensDTO data, Authentication auth) {
+        ItensDTO itemAtualizado = itensService.atualizarItem(id, data, (FuncionariosModel) auth.getPrincipal());
         
         return ResponseEntity.ok(itemAtualizado);
     }
     
     @PutMapping("/PUT/entrada/{id}")
-    public ResponseEntity<ItensDTO> entradaQtd(@PathVariable UUID id, @RequestBody QtdDTO qtdDTO) {
-        ItensDTO itemAtualizado = itensService.entradaQtd(id, qtdDTO.quantidade(), funcionarioAutenticado);
+    public ResponseEntity<ItensDTO> entradaQtd(@PathVariable UUID id, @RequestBody QtdDTO qtdDTO, Authentication auth) {
+        ItensDTO itemAtualizado = itensService.entradaQtd(id, qtdDTO.quantidade(), (FuncionariosModel) auth.getPrincipal());
         
         return ResponseEntity.ok(itemAtualizado);
     }
     
     @PutMapping("/PUT/saida/{id}")
-    public ResponseEntity<ItensDTO> saidaQtd(@PathVariable UUID id, @RequestBody QtdDTO qtdDTO) {
-        ItensDTO itemAtualizado = itensService.saidaQtd(id, qtdDTO.quantidade(), funcionarioAutenticado);
+    public ResponseEntity<ItensDTO> saidaQtd(@PathVariable UUID id, @RequestBody QtdDTO qtdDTO, Authentication auth) {
+        ItensDTO itemAtualizado = itensService.saidaQtd(id, qtdDTO.quantidade(), (FuncionariosModel) auth.getPrincipal());
         
         return ResponseEntity.ok(itemAtualizado);
     }
 
     @DeleteMapping("/DELETE/{id}")
-    public ResponseEntity<Void> deletarItem(@PathVariable UUID id){
-        itensService.deletarItem(id, funcionarioAutenticado);
+    public ResponseEntity<Void> deletarItem(@PathVariable UUID id, Authentication auth){
+        itensService.deletarItem(id, (FuncionariosModel) auth.getPrincipal());
         return ResponseEntity.noContent().build();
     }
     

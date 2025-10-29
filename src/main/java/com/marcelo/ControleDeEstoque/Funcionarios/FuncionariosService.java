@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,13 +22,14 @@ public class FuncionariosService implements UserDetailsService{
     private final FuncionariosMapper funcionariosMapper;
     private final FuncionariosRepository funcionariosRepository;
     private final RegistrosService registrosService;
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder encoder;
 
-    public FuncionariosService(FuncionariosMapper funcionariosMapper, FuncionariosRepository funcionariosRepository, RegistrosService registrosService){
+    public FuncionariosService(FuncionariosMapper funcionariosMapper, FuncionariosRepository funcionariosRepository, RegistrosService registrosService, PasswordEncoder encoder){
 
         this.funcionariosMapper = funcionariosMapper;
         this.funcionariosRepository = funcionariosRepository;
         this.registrosService = registrosService;
+        this.encoder = encoder;
     }
 
     public FuncionariosDTO listarPorId(UUID id){
