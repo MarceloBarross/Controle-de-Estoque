@@ -157,7 +157,7 @@ _(**Nota:** Os paths abaixo seguem as convenções REST recomendadas. Ajuste se 
     * **Request Body:** `FuncionariosDTO` com os dados a serem atualizados.
     * **Response:** `200 OK` com o `FuncionariosDTO` atualizado ou `404 Not Found`.
 * **`/funcionarios/DELETE/{id}`**
-    * **Descrição:** Desativa (Soft Delete) um funcionário.
+    * **Descrição:** Deleta um funcionario do BD.
     * **Autenticação:** Requer Role `ADMIN`.
     * **Response:** `204 No Content` ou `404 Not Found`.
 
